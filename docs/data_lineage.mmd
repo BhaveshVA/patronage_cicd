@@ -1,0 +1,28 @@
+
+flowchart TD
+    subgraph Sources
+        A1[Caregiver CSVs] 
+        A2[SCD CSVs]
+        A3[Old PT TXT]
+        A4[New PT Delta]
+        A5[Identity Correlations Delta]
+    end
+    subgraph Processing
+        B1[Seed Loader]
+        B2[Caregiver Aggregator]
+        B3[SCD Preparer]
+        B4[PT Indicator Updater]
+        B5[Change Tracker]
+    end
+    subgraph Storage
+        C1[Delta Table: Patronage]
+    end
+    A1 --> B1 --> C1
+    A2 --> B3 --> C1
+    A3 --> B4 --> C1
+    A4 --> B4
+    A5 --> B1
+    A5 --> B2
+    A5 --> B3
+    B2 --> C1
+    B5 --> C1

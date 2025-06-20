@@ -1,0 +1,21 @@
+# ETL Pipeline Configuration
+source_format: "delta"
+write_mode: "overwrite"
+
+# Spark Configuration
+spark_configs:
+  "spark.sql.sources.partitionOverwriteMode": "dynamic"
+  "spark.databricks.delta.autoCompact.enabled": "true"
+  "spark.sql.adaptive.enabled": "true"
+  "spark.sql.shuffle.partitions": "auto"
+
+patronage_tablename: mypatronage_test111
+patronage_table_location: dbfs:/user/hive/warehouse/
+initial_cg_file: dbfs:/FileStore/All_Caregivers_InitialSeed_12182024_csv.csv
+cg_source: /mnt/ci-carma/landing/
+scd_source: /mnt/ci-vadir-shared/
+pt_old_source: /mnt/ci-patronage/pai_landing/
+pt_new_source: /mnt/ci-vba-edw-2/DeltaTables/DW_ADHOC_RECURR.DOD_PATRONAGE_SCD_PT/
+cg_start_datetime: '2024-12-18 23:59:59'
+others_start_datetime: '2025-04-01 00:00:00'
+identity_correlations_path: /mnt/Patronage/identity_correlations

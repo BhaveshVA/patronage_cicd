@@ -1,0 +1,11 @@
+flowchart TD
+    S1[Incoming DataFrame] --> S2[Join with Delta Table]
+    S2 --> S3{Record Exists?}
+    S3 -- No --> S4[Insert as New Record]
+    S3 -- Yes --> S5{Data Changed?}
+    S5 -- No --> S6[Skip]
+    S5 -- Yes --> S7[Expire Old Record]
+    S7 --> S8[Insert as New Version]
+    S4 --> S9[Delta Table]
+    S8 --> S9
+    S6 --> S9

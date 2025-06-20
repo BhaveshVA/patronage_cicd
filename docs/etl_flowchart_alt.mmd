@@ -1,0 +1,33 @@
+graph TD
+    Start((Start))
+    Source1[Caregiver CSVs]
+    Source2[SCD CSVs]
+    Source3[Old PT TXT]
+    Source4[New PT Delta]
+    Source5[Identity Correlations Delta]
+    Process1[Seed Loader]
+    Process2[Caregiver Aggregator]
+    Process3[SCD Preparer]
+    Process4[PT Indicator Updater]
+    Process5[Change Tracker]
+    Storage[Delta Table: Patronage]
+    Report[Reporting/Downstream]
+
+    Start --> Source1
+    Start --> Source2
+    Start --> Source3
+    Start --> Source4
+    Start --> Source5
+    Source1 --> Process1
+    Process1 --> Storage
+    Source2 --> Process3
+    Process3 --> Storage
+    Source3 --> Process4
+    Process4 --> Storage
+    Source4 --> Process4
+    Source5 --> Process1
+    Source5 --> Process2
+    Source5 --> Process3
+    Process2 --> Storage
+    Process5 --> Storage
+    Storage --> Report
